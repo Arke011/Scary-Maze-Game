@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class playerLVL3 : MonoBehaviour
 {
-    public float moveSpeed = 5f;
+    public float moveSpeed = 2f;
     public GameObject jumpScareImage; 
     public AudioClip jumpScareSound; 
 
@@ -47,7 +47,7 @@ public class playerLVL3 : MonoBehaviour
         else if (!collision.gameObject.CompareTag("finish"))
         {
             
-            transform.position = new Vector3(0f, -4.27f, 0f);
+            transform.position = new Vector3(-2.01f, -6.43f, 0f);
 
             
             rb.velocity = Vector2.zero;
