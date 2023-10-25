@@ -5,63 +5,46 @@ using UnityEngine.SceneManagement;
 
 public class playerLVL3 : MonoBehaviour
 {
-    public float moveSpeed = 2f;
+    public float moveSpeed = 5f;
     public GameObject jumpScareImage; 
     public AudioClip jumpScareSound; 
 
     private bool jumpScareActive = false;
 
-    private Rigidbody2D rb;
-
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-    }
-
     private void Update()
     {
-        
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
 
-        
-        Vector2 moveDirection = new Vector2(horizontalInput, verticalInput).normalized;
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        
-        Vector2 velocity = moveDirection * moveSpeed * Time.deltaTime;
 
-        
-        rb.MovePosition(rb.position + velocity);
+        transform.position = new Vector3(mousePosition.x, mousePosition.y, transform.position.z);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("finish3"))
+        if (collision.gameObject.CompareTag("skary"))
         {
             
             ActivateJumpScare();
 
             
-            StartCoroutine(ResetAfterDelay(3f));
+            StartCoroutine(ResetAfterDelay(4f));
         }
-        else if (!collision.gameObject.CompareTag("finish"))
-        {
-            
-            transform.position = new Vector3(-2.01f, -6.43f, 0f);
-
-            
-            rb.velocity = Vector2.zero;
-        }
-        else if (collision.gameObject.CompareTag("finish"))
+        else if (collision.gameObject.CompareTag("finish3"))
         {
             
             SceneManager.LoadScene("SampleScene");
         }
+        else
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
+
     }
 
     private void ActivateJumpScare()
     {
-       
+        
         jumpScareImage.SetActive(true);
 
         
@@ -76,7 +59,7 @@ public class playerLVL3 : MonoBehaviour
     private IEnumerator ResetAfterDelay(float delay)
     {
         
-        yield return new WaitForSeconds(delay); //waits for 3 seconds :)
+        yield return new WaitForSeconds(delay);
 
         
         jumpScareImage.SetActive(false);
@@ -88,10 +71,7 @@ public class playerLVL3 : MonoBehaviour
             audioSource.Stop();
 
             
-            transform.position = new Vector3(0f, -4.27f, 0f);
-
             
-            rb.velocity = Vector2.zero;
 
             
             SceneManager.LoadScene("SampleScene");

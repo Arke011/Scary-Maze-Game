@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class beginMaze : MonoBehaviour
 {
-    void OnMouseDown()
+    public void OnMouseDown()
     {
         SceneManager.LoadScene("Level1");
     }
